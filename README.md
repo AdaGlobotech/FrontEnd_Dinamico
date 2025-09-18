@@ -1,5 +1,5 @@
 # FrontEnd_Dinamico
-Projeto desenvolvido para o módulo FrontEnd Dinamico do Bootcamp Ada GloboTech
+Projeto desenvolvido para o módulo FrontEnd Dinamico do Bootcamp Ada GloboTech - Grupo 5
 <img width="1036" height="667" alt="Captura de Tela 2025-09-18 às 13 14 36" src="https://github.com/user-attachments/assets/db461c7a-e21a-41be-8a26-d3bb59ea631c" />
 
 Um sistema completo de gerenciamento de tarefas desenvolvido com HTML, CSS e JavaScript puro (Vanilla JS), sem dependências de frameworks externos. O projeto oferece uma interface moderna e responsiva para organização pessoal e profissional.
