@@ -2,7 +2,7 @@
  * @file script.js
  * @brief Sistema de autenticação e gerenciamento de tarefas usando localStorage
  * @details Gerencia cadastro, login, recuperação de senha e lista de tarefas
- * @author GloboTech Team
+ * @author GloboTech Team 5
  * @version 1.0
  */
 
