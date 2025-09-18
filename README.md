@@ -64,7 +64,7 @@ ADA_Front_Est-tico/
 ### 1. Instalação
 ```bash
 # Clone o repositório
-git clone [URL_DO_REPOSITORIO]
+git clone https://github.com/AdaGlobotech/FrontEnd_Dinamico/
 
 # Entre no diretório
 cd ADA_Front_Est-tico
