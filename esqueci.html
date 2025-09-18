@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<!--!
+	@file esqueci.html
+	@brief Página de recuperação de senha da aplicação GloboTech
+	@details Esta página contém o formulário para recuperação de senha
+	@author GloboTech Team
+	@version 1.0
+-->
+
+<!--!
+	@section head_section Configurações do documento
+	@brief Define metadados, título e referências CSS
+-->
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Recuperar Senha - To-Do List</title>
+	<link rel="stylesheet" href="style.css"/>
+</head>
+
+<!--!
+	@section body_section Corpo da página de recuperação
+	@brief Contém toda a interface visual da página de recuperação
+-->
+<body class="login-page">
+	<!--!
+		@section forgot_container Container principal da recuperação
+		@brief Centraliza e organiza todos os elementos de recuperação
+	-->
+	<div class="login-container">
+		<!--!
+			@section forgot_card Card principal de recuperação
+			@brief Contém botão voltar, header, formulário
+		-->
+		<div class="login-card">
+			<!--!
+				@section back_button Botão de retorno
+				@brief Seta para voltar à tela de login
+			-->
+			<div class="back-button">
+				<a href="login.html" class="back-link">
+					<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path d="M19 12H5M12 19L5 12L12 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+					</svg>
+					Voltar
+				</a>
+			</div>
+
+			<!--!
+				@section forgot_header Cabeçalho do formulário
+				@brief Exibe título e subtítulo da página de recuperação
+			-->
+			<header class="login-header">
+				<h1 class="login-title">Recuperar Senha</h1>
+				<p class="login-subtitle">Digite seu email para recuperar sua senha</p>
+			</header>
+
+			<!--!
+				@section forgot_form Formulário de recuperação
+				@brief Campo de email e botão de recuperação
+				@details Valida entrada do usuário e simula envio de email
+			-->
+			<form class="login-form" id="forgotForm">
+				<!--!
+					@subsection email_field Campo de email
+					@brief Input para inserção do email do usuário
+				-->
+				<div class="form-group">
+					<input 
+						type="email" 
+						class="form-input" 
+						id="emailForgot"
+						placeholder="Email"
+						required
+					>
+				</div>
+
+				<!--!
+					@subsection forgot_button Botão de recuperação
+					@brief Botão que envia email de recuperação
+				-->
+				<button type="submit" class="login-button">
+					Esqueci minha senha
+				</button>
+			</form>
+		</div>
+	</div>
+
+	<!-- Scripts JavaScript -->
+	<script src="script.js"></script>
+	<script>
+		document.getElementById('forgotForm').addEventListener('submit', function(e) {
+			e.preventDefault();
+			
+			const email = document.getElementById('emailForgot').value;
+			
+			if (!email) {
+				alert('Por favor, digite seu email!');
+				return;
+			}
+			
+			const result = authManager.forgotPassword(email);
+			
+			alert(result.message);
+			
+			if (result.success) {
+				setTimeout(() => {
+					window.location.href = 'login.html';
+				}, 2000);
+			}
+		});
+	</script>
+</body>
+</html>
