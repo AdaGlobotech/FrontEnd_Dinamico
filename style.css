@@ -1,0 +1,580 @@
+/* Reset e base */
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+	min-height: 100vh;
+	color: #333;
+}
+
+/* Estilos específicos do LOGIN */
+body.login-page {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 1rem;
+	min-height: 100vh;
+}
+
+.login-container {
+	width: 100%;
+	max-width: 400px;
+}
+
+.login-card {
+	background: rgba(255, 255, 255, 0.95);
+	backdrop-filter: blur(10px);
+	border-radius: 24px;
+	box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+	padding: 3rem 2rem;
+	text-align: center;
+}
+
+/* Header */
+.login-header {
+	margin-bottom: 2.5rem;
+}
+
+.login-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	background: linear-gradient(135deg, #667eea, #764ba2);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+	margin-bottom: 0.5rem;
+}
+
+.login-subtitle {
+	color: #666;
+	font-size: 1rem;
+}
+
+/* Form */
+.login-form {
+	display: flex;
+	flex-direction: column;
+	gap: 1.5rem;
+}
+
+.form-group {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
+.form-input {
+	padding: 1rem;
+	border: 2px solid #e1e5e9;
+	border-radius: 12px;
+	font-size: 1rem;
+	transition: all 0.3s ease;
+	background: white;
+	width: 100%;
+}
+
+.form-input::placeholder {
+	color: #999;
+}
+
+.form-input:focus {
+	outline: none;
+	border-color: #667eea;
+	box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.login-button {
+	padding: 1rem 2rem;
+	background: #10b981;
+	color: white;
+	border: none;
+	border-radius: 12px;
+	font-size: 1rem;
+	font-weight: 600;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+	margin-top: 0.5rem;
+	text-decoration: none;
+	display: inline-block;
+	width: 100%;
+	text-align: center;
+}
+
+.login-button:hover {
+	background: #059669;
+	transform: translateY(-2px);
+	box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+	color: white;
+}
+
+.login-button:active {
+	transform: translateY(0);
+}
+
+.auth-links {
+	margin-top: 1.5rem;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.forgot-password,
+.register-link {
+	color: #666;
+	font-size: 0.875rem;
+	text-decoration: none;
+	transition: all 0.3s ease;
+}
+
+.forgot-password:hover,
+.register-link:hover {
+	color: #667eea;
+	text-decoration: underline;
+}
+
+/* Estilos para botão voltar */
+.back-button {
+	margin-bottom: 1rem;
+}
+
+.back-link {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	color: #666;
+	font-size: 0.875rem;
+	text-decoration: none;
+	transition: all 0.3s ease;
+	padding: 0.5rem 0;
+}
+
+.back-link:hover {
+	color: #667eea;
+}
+
+.back-link svg {
+	transition: transform 0.3s ease;
+}
+
+.back-link:hover svg {
+	transform: translateX(-2px);
+}
+
+/* Estilos do modal removidos - agora usando alert simples */
+
+/* Sobrescreve cor do botão primário para verde (igual aos botões de login) */
+.btn-primary {
+	background: #10b981 !important;
+	border-color: #10b981 !important;
+	color: white !important;
+}
+
+.btn-primary:hover {
+	background: #059669 !important;
+	border-color: #059669 !important;
+	color: white !important;
+}
+
+.btn-primary:focus,
+.btn-primary:active {
+	background: #059669 !important;
+	border-color: #059669 !important;
+	color: white !important;
+	box-shadow: 0 0 0 0.2rem rgba(16, 185, 129, 0.25) !important;
+}
+
+/* Estilos específicos do DASHBOARD */
+/* Header */
+.header {
+	background: rgba(255, 255, 255, 0.95);
+	backdrop-filter: blur(10px);
+	padding: 1rem 2rem;
+	box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 1000;
+}
+
+.logo {
+	font-size: 1.5rem;
+	font-weight: 700;
+	background: linear-gradient(135deg, #667eea, #764ba2);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+}
+
+.user-info {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+}
+
+.user-name {
+	font-size: 1.1rem;
+	font-weight: 500;
+}
+
+.user-avatar {
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	background: linear-gradient(135deg, #667eea, #764ba2);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: white;
+	font-weight: 600;
+}
+
+.logout-btn {
+	padding: 0.5rem 1rem;
+	background: transparent;
+	color: #667eea;
+	border: 2px solid #667eea;
+	border-radius: 8px;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	text-decoration: none;
+}
+
+.logout-btn:hover {
+	background: #667eea;
+	color: white;
+}
+
+/* Botão Dashboard (usado no todo.html) */
+.dashboard-btn {
+	padding: 0.5rem 1rem;
+	background: transparent;
+	color: #667eea;
+	border: 2px solid #667eea;
+	border-radius: 8px;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	text-decoration: none;
+	font-size: 0.9rem;
+	font-weight: 500;
+}
+
+.dashboard-btn:hover {
+	background: #667eea;
+	color: white;
+	text-decoration: none;
+}
+
+/* Main content */
+.main-content {
+	padding: 2rem;
+	max-width: 1200px;
+	margin: 0 auto;
+	padding-top: 6rem;
+}
+
+/* Seções */
+.section {
+	background: rgba(255, 255, 255, 0.95);
+	backdrop-filter: blur(10px);
+	border-radius: 16px;
+	padding: 2rem;
+	margin-bottom: 2rem;
+	box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.section-title {
+	font-size: 1.5rem;
+	font-weight: 600;
+	color: #333;
+	margin-bottom: 1.5rem;
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+}
+
+/* Formulário de usuário */
+.user-form {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+	gap: 1rem;
+	margin-bottom: 1rem;
+}
+
+.dashboard-form-group {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
+.dashboard-form-input {
+	padding: 0.75rem;
+	border: 2px solid #e1e5e9;
+	border-radius: 8px;
+	font-size: 0.9rem;
+	transition: all 0.3s ease;
+	background: white;
+}
+
+.dashboard-form-input:focus {
+	outline: none;
+	border-color: #667eea;
+	box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.file-input {
+	padding: 0.5rem;
+	border: 2px dashed #e1e5e9;
+	border-radius: 8px;
+	text-align: center;
+	cursor: pointer;
+	transition: all 0.3s ease;
+}
+
+.file-input:hover {
+	border-color: #667eea;
+	background: rgba(102, 126, 234, 0.05);
+}
+
+/* Botões */
+.btn {
+	padding: 0.75rem 1.5rem;
+	border: none;
+	border-radius: 8px;
+	font-size: 0.9rem;
+	font-weight: 600;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	text-decoration: none;
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	justify-content: center;
+}
+
+.btn-primary {
+	background: linear-gradient(135deg, #667eea, #764ba2);
+	color: white;
+	box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.btn-primary:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+	color: white;
+}
+
+.btn-secondary {
+	background: rgba(102, 126, 234, 0.1);
+	color: #667eea;
+	border: 2px solid #667eea;
+}
+
+.btn-secondary:hover {
+	background: #667eea;
+	color: white;
+}
+
+.btn-danger {
+	background: rgba(239, 68, 68, 0.1);
+	color: #ef4444;
+	border: 2px solid #ef4444;
+}
+
+.btn-danger:hover {
+	background: #ef4444;
+	color: white;
+}
+
+/* Lista de tarefas */
+.task-lists {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+	gap: 1rem;
+	margin-top: 1rem;
+}
+
+.task-list-card {
+	background: rgba(255, 255, 255, 0.8);
+	border: 2px solid #e1e5e9;
+	border-radius: 12px;
+	padding: 1.5rem;
+	transition: all 0.3s ease;
+}
+
+.task-list-card:hover {
+	border-color: #667eea;
+	transform: translateY(-2px);
+	box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.list-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 1rem;
+}
+
+.list-title {
+	font-size: 1.1rem;
+	font-weight: 600;
+	color: #333;
+}
+
+.list-actions {
+	display: flex;
+	gap: 0.5rem;
+}
+
+.btn-small {
+	padding: 0.25rem 0.5rem;
+	font-size: 0.8rem;
+	min-width: auto;
+}
+
+.list-stats {
+	color: #666;
+	font-size: 0.9rem;
+	margin-bottom: 1rem;
+}
+
+/* Formulário nova lista */
+.new-list-form {
+	display: flex;
+	gap: 1rem;
+	margin-top: 1rem;
+}
+
+.new-list-input {
+	flex: 1;
+}
+
+/* Status indicadores */
+.status-indicator {
+	display: inline-block;
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	margin-right: 0.5rem;
+}
+
+.status-active {
+	background: #10b981;
+}
+
+.status-pending {
+	background: #f59e0b;
+}
+
+/* Estilos específicos do TODO - Bootstrap Override */
+:root{
+	--bs-primary:#667eea;
+}
+
+/* Fundo lilás em gradiente */
+html,body{min-height:100%}
+body.todo-page{
+	min-height:100dvh;
+	background: linear-gradient(135deg,#667eea 0%,#764ba2 100%);
+	background-attachment: fixed;
+}
+
+/* Comentário: estilos navbar removidos, agora usando header idêntico ao dashboard */
+
+/* Cards "vidrados" sobre o gradiente */
+.glass{
+	background: rgba(255,255,255,.95);
+	backdrop-filter: blur(10px);
+	-webkit-backdrop-filter: blur(10px);
+	border-radius:1rem;
+	box-shadow:0 20px 60px rgba(0,0,0,.18);
+}
+
+/* Título com gradiente */
+.title-gradient{
+	font-size:2.25rem;font-weight:700;
+	background:linear-gradient(135deg,#667eea,#764ba2);
+	-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+	margin-bottom:.25rem;
+}
+.subtitle{color:#4b5563;font-size:1rem}
+
+/* Form "Adicionar tarefa" */
+.add-form .form-control,.add-form .form-select{
+	border:2px solid #e1e5e9;border-radius:.75rem;padding:.9rem 1rem;
+}
+.add-form .form-control:focus,.add-form .form-select:focus{
+	box-shadow:0 0 0 3px rgba(102,126,234,.12);border-color:#667eea;
+}
+
+/* Centralizar conteúdo do card adicionar tarefa */
+.add-task-card {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+/* Lista de tarefas */
+.list-group-item.task-item{
+	border:1px solid #e1e5e9 !important;border-radius:.75rem !important;margin-bottom:.75rem;padding:1rem;
+	background:#fff;
+}
+/* checkbox na cor primária + riscado quando marcado */
+.form-check-input:checked{background-color:var(--bs-primary);border-color:var(--bs-primary)}
+.form-check-input:checked + .form-check-label{ text-decoration:line-through; opacity:.7; }
+
+/* Etiquetas */
+.badge-assignee{background:linear-gradient(135deg,#667eea,#764ba2)}
+.dot{inline-size:.6rem;block-size:.6rem;border-radius:999px;display:inline-block;margin-right:.4rem}
+.dot-high{background:#ef4444}.dot-medium{background:#f59e0b}.dot-low{background:#10b981}
+
+/* Borda lateral por prioridade */
+.priority-border{position:relative}
+.priority-border::before{
+	content:"";position:absolute;inset-block:0;inset-inline-start:0;inline-size:.25rem;
+	border-top-left-radius:.75rem;border-bottom-left-radius:.75rem;
+}
+.priority-high::before{background:#ef4444}
+.priority-medium::before{background:#f59e0b}
+.priority-low::before{background:#10b981}
+
+/* Estado vazio (mostrar manualmente se quiser) */
+.empty-state{display:none;border:2px dashed rgba(255,255,255,.35);border-radius:1rem;color:#fff}
+
+/* Responsive */
+@media (max-width: 480px) {
+	.login-card {
+		padding: 2rem 1.5rem;
+	}
+	
+	.login-title {
+		font-size: 2rem;
+	}
+}
+
+@media (max-width: 768px) {
+	.header {
+		padding: 1rem;
+	}
+
+	.main-content {
+		padding: 1rem;
+	}
+
+	.user-form {
+		grid-template-columns: 1fr;
+	}
+
+	.task-lists {
+		grid-template-columns: 1fr;
+	}
+}
