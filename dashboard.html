@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<!--!
+	@file dashboard.html
+	@brief Página principal do dashboard da aplicação GloboTech
+	@details Página de gerenciamento de usuários e listas de tarefas
+	@author GloboTech Team
+	@version 1.0
+-->
+
+<!--!
+	@section head_section Configurações do documento
+	@brief Define metadados, título e referências CSS
+-->
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Dashboard - To-Do Manager</title>
+	
+	<!-- Bootstrap 4.3.1 (apenas para resumo geral) -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	
+	<link rel="stylesheet" href="style.css"/>
+</head>
+
+<!--!
+	@section body_section Corpo da página do dashboard
+	@brief Contém header, navegação e conteúdo principal
+-->
+<body>
+	<!--!
+		@section header_section Cabeçalho da aplicação
+		@brief Barra superior com logo, informações do usuário e logout
+	-->
+	<header class="header">
+		<!--!
+			@subsection logo_section Logo da aplicação
+			@brief Exibe o nome e ícone do sistema GloboTech
+		-->
+		<div class="logo">📋 GloboTech</div>
+		
+		<!--!
+			@subsection user_info_section Informações do usuário
+			@brief Mostra avatar, nome do usuário e botão de sair
+		-->
+		<div class="user-info">
+			<div class="user-avatar">JD</div>
+			<span class="user-name">João Silva</span>
+			<a href="login.html" class="logout-btn">Sair</a>
+		</div>
+	</header>
+
+	<!--!
+		@section main_content Conteúdo principal do dashboard
+		@brief Container com todas as seções funcionais da aplicação
+	-->
+	<main class="main-content">
+
+		<!--!
+			@section task_lists_section Seção de gerenciamento de listas
+			@brief Interface para criar e gerenciar listas de tarefas
+		-->
+		<section class="section">
+			<h2 class="section-title">📝 Minhas Listas de Tarefas</h2>
+			
+			<!--!
+				@subsection new_list_form Formulário para nova lista
+				@brief Campo de input e botão para criar nova lista de tarefas
+			-->
+			<div class="new-list-form">
+				<input type="text" class="dashboard-form-input new-list-input" id="newListInput" placeholder="Nome da nova lista">
+				<button class="btn btn-primary" onclick="createNewListFromDashboard()">➕ Criar Lista</button>
+			</div>
+			
+			<!--!
+				@subsection existing_lists Listas existentes
+				@brief Grid com cards das listas de tarefas já criadas
+			-->
+			<div class="task-lists" id="taskListsContainer">
+				<!-- Listas serão carregadas dinamicamente aqui -->
+			</div>
+		</section>
+
+		<!--!
+			@section statistics_section Seção de estatísticas
+			@brief Exibe resumo geral das listas e tarefas do usuário
+		-->
+		<section class="section">
+			<h2 class="section-title">📈 Resumo Geral</h2>
+			
+			<!--!
+				@subsection stats_grid Grid de estatísticas
+				@brief Cards com métricas principais: listas, tarefas, concluídas, pendentes
+			-->
+			<div class="row">
+				<!--!
+					@subsubsection active_lists_stat Estatística de listas ativas
+				-->
+				<div class="col-6 col-md-3 mb-3">
+					<div class="card text-center border-0" style="background: rgba(102, 126, 234, 0.1);">
+						<div class="card-body py-3">
+							<h3 class="display-4 font-weight-bold text-primary mb-1" id="activeListsCount">0</h3>
+							<p class="card-text text-muted mb-0">Total de Listas</p>
+						</div>
+					</div>
+				</div>
+				
+				<!--!
+					@subsubsection total_tasks_stat Estatística de total de tarefas
+				-->
+				<div class="col-6 col-md-3 mb-3">
+					<div class="card text-center border-0" style="background: rgba(16, 185, 129, 0.1);">
+						<div class="card-body py-3">
+							<h3 class="display-4 font-weight-bold text-success mb-1" id="totalTasksCount">0</h3>
+							<p class="card-text text-muted mb-0">Total de Tarefas</p>
+						</div>
+					</div>
+				</div>
+				
+				<!--!
+					@subsubsection completed_tasks_stat Estatística de tarefas concluídas
+				-->
+				<div class="col-6 col-md-3 mb-3">
+					<div class="card text-center border-0" style="background: rgba(245, 158, 11, 0.1);">
+						<div class="card-body py-3">
+							<h3 class="display-4 font-weight-bold text-warning mb-1" id="completedTasksCount">0</h3>
+							<p class="card-text text-muted mb-0">Concluídas</p>
+						</div>
+					</div>
+				</div>
+				
+				<!--!
+					@subsubsection pending_tasks_stat Estatística de tarefas pendentes
+				-->
+				<div class="col-6 col-md-3 mb-3">
+					<div class="card text-center border-0" style="background: rgba(239, 68, 68, 0.1);">
+						<div class="card-body py-3">
+							<h3 class="display-4 font-weight-bold text-danger mb-1" id="pendingTasksCount">0</h3>
+							<p class="card-text text-muted mb-0">Pendentes</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<!-- Scripts JavaScript -->
+	<script src="script.js"></script>
+	<script>
+		// Carrega e exibe as listas quando a página carregar
+		document.addEventListener('DOMContentLoaded', function() {
+			// Limpa dados inconsistentes antes de exibir
+			taskManager.cleanupInconsistentData();
+			
+			renderAllLists();
+			updateGeneralStats();
+			setupNewListForm();
+			
+			// Escuta mudanças nas tarefas para atualizar estatísticas
+			window.addEventListener('tasksUpdated', function() {
+				updateGeneralStats();
+				renderAllLists();
+			});
+		});
+
+		// Configura o formulário de nova lista
+		function setupNewListForm() {
+			const input = document.getElementById('newListInput');
+			input.addEventListener('keypress', function(e) {
+				if (e.key === 'Enter') {
+					createNewListFromDashboard();
+				}
+			});
+		}
+
+		// Cria uma nova lista a partir do dashboard
+		function createNewListFromDashboard() {
+			const input = document.getElementById('newListInput');
+			const listName = input.value.trim();
+			
+			if (!listName) {
+				alert('Por favor, digite o nome da lista!');
+				return;
+			}
+			
+			const result = taskManager.createList(listName);
+			
+			if (result.success) {
+				input.value = '';
+				renderAllLists();
+				// Redireciona para a nova lista
+				setTimeout(() => {
+					window.location.href = `todo.html?list=${result.list.id}`;
+				}, 500);
+			} else {
+				alert(result.message);
+			}
+		}
+
+		// Atualiza as estatísticas gerais do dashboard
+		function updateGeneralStats() {
+			const lists = taskManager.getAllLists();
+			const allTasks = taskManager.getAllTasksGlobal(); // Usa método específico para todas as tarefas
+			
+			// Debug: mostra dados no console
+			console.log('=== DEBUG ESTATÍSTICAS DETALHADO ===');
+			console.log('Total de listas:', lists.length);
+			console.log('Listas:', lists.map(l => `${l.name} (${l.status})`));
+			console.log('Total de tarefas RAW:', allTasks.length);
+			
+			// Debug cada tarefa individualmente
+			console.log('=== TODAS AS TAREFAS ===');
+			allTasks.forEach((task, index) => {
+				console.log(`${index + 1}. ID: ${task.id} | Título: "${task.title}" | Lista: ${task.listId} | Concluída: ${task.completed} | Tipo completed: ${typeof task.completed}`);
+			});
+			
+			// Verificar se há tarefas duplicadas por ID
+			const taskIds = allTasks.map(t => t.id);
+			const uniqueIds = new Set(taskIds);
+			console.log('IDs únicos:', uniqueIds.size, 'vs Total tarefas:', allTasks.length);
+			if (uniqueIds.size !== allTasks.length) {
+				console.warn('⚠️ ATENÇÃO: Há tarefas duplicadas!');
+			}
+			
+			// Verificar se há tarefas órfãs (sem lista válida)
+			const validListIds = lists.map(l => l.id);
+			const orphanTasks = allTasks.filter(t => !validListIds.includes(t.listId));
+			if (orphanTasks.length > 0) {
+				console.warn('⚠️ TAREFAS ÓRFÃS (sem lista válida):', orphanTasks);
+			}
+			
+			// Calcula estatísticas corrigidas
+			const totalListsCount = lists.length; // Total de listas (ativas + inativas)
+			const totalTasksCount = allTasks.length;
+			const completedTasksCount = allTasks.filter(task => task.completed === true).length;
+			const pendingTasksCount = allTasks.filter(task => task.completed === false).length;
+			
+			console.log('Calculado - Listas:', totalListsCount);
+			console.log('Calculado - Total tarefas:', totalTasksCount);
+			console.log('Calculado - Concluídas:', completedTasksCount);
+			console.log('Calculado - Pendentes:', pendingTasksCount);
+			console.log('==========================');
+			
+			// Atualiza os elementos na tela
+			document.getElementById('activeListsCount').textContent = totalListsCount;
+			document.getElementById('totalTasksCount').textContent = totalTasksCount;
+			document.getElementById('completedTasksCount').textContent = completedTasksCount;
+			document.getElementById('pendingTasksCount').textContent = pendingTasksCount;
+		}
+
+		// Renderiza todas as listas no dashboard
+		function renderAllLists() {
+			const lists = taskManager.getAllLists();
+			const container = document.getElementById('taskListsContainer');
+			
+			container.innerHTML = '';
+			
+			lists.forEach(list => {
+				const listCard = createListCard(list);
+				container.appendChild(listCard);
+			});
+			
+			// Atualiza estatísticas após renderizar listas
+			updateGeneralStats();
+		}
+
+		// Cria o card HTML para uma lista
+		function createListCard(list) {
+			const stats = taskManager.getListStats(list.id);
+			const div = document.createElement('div');
+			div.className = 'task-list-card';
+			
+			// Descrições padrão para as listas
+			const descriptions = {
+				'trabalho': 'Lista de tarefas relacionadas ao trabalho e projetos profissionais.',
+				'pessoal': 'Tarefas pessoais, compras e atividades do dia a dia.',
+				'estudos': 'Cursos, leituras e materiais de estudo organizados.'
+			};
+			
+			const description = descriptions[list.id] || 'Lista personalizada de tarefas.';
+			const statusClass = stats.pending > 0 ? 'status-pending' : 'status-active';
+			const isDefaultList = ['trabalho', 'pessoal', 'estudos'].includes(list.id);
+			
+			div.innerHTML = `
+				<div class="list-header">
+					<h3 class="list-title">
+						<span class="status-indicator ${statusClass}"></span>
+						${list.name}
+					</h3>
+					<div class="list-actions">
+						<a href="todo.html?list=${list.id}" class="btn btn-secondary btn-small">✏️ Abrir</a>
+						${!isDefaultList ? `<button class="btn btn-danger btn-small" onclick="removeListFromDashboard('${list.id}')">🗑️</button>` : ''}
+					</div>
+				</div>
+				<div class="list-stats">
+					📊 ${stats.total} tarefa${stats.total !== 1 ? 's' : ''} • ${stats.completed} concluída${stats.completed !== 1 ? 's' : ''}
+				</div>
+				<p>${description}</p>
+			`;
+			
+			return div;
+		}
+
+		// Remove uma lista a partir do dashboard
+		function removeListFromDashboard(listId) {
+			const list = taskManager.getListById(listId);
+			
+			if (!list) {
+				alert('Lista não encontrada!');
+				return;
+			}
+			
+			if (confirm(`Tem certeza que deseja remover a lista "${list.name}" e todas suas tarefas?`)) {
+				const result = taskManager.removeList(listId);
+				
+				if (result.success) {
+					renderAllLists();
+				} else {
+					alert(result.message);
+				}
+			}
+		}
+	</script>
+</body>
+</html>

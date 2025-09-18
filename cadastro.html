@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<!--!
+	@file cadastro.html
+	@brief Página de cadastro da aplicação GloboTech
+	@details Esta página contém o formulário para criação de nova conta
+	@author GloboTech Team
+	@version 1.0
+-->
+
+<!--!
+	@section head_section Configurações do documento
+	@brief Define metadados, título e referências CSS
+-->
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Cadastro - To-Do List</title>
+	<link rel="stylesheet" href="style.css"/>
+</head>
+
+<!--!
+	@section body_section Corpo da página de cadastro
+	@brief Contém toda a interface visual da página de cadastro
+-->
+<body class="login-page">
+	<!--!
+		@section register_container Container principal do cadastro
+		@brief Centraliza e organiza todos os elementos de cadastro
+	-->
+	<div class="login-container">
+		<!--!
+			@section register_card Card principal de cadastro
+			@brief Contém botão voltar, header, formulário
+		-->
+		<div class="login-card">
+			<!--!
+				@section back_button Botão de retorno
+				@brief Seta para voltar à tela de login
+			-->
+			<div class="back-button">
+				<a href="login.html" class="back-link">
+					<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path d="M19 12H5M12 19L5 12L12 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+					</svg>
+					Voltar
+				</a>
+			</div>
+
+			<!--!
+				@section register_header Cabeçalho do formulário
+				@brief Exibe título e subtítulo da página de cadastro
+			-->
+			<header class="login-header">
+				<h1 class="login-title">Cadastro</h1>
+				<p class="login-subtitle">Crie sua conta para acessar a lista de tarefas</p>
+			</header>
+
+			<!--!
+				@section register_form Formulário de cadastro
+				@brief Campos nome, email, senha, repetir senha e botão cadastrar
+				@details Valida entrada do usuário e cria nova conta
+			-->
+			<form class="login-form" id="registerForm">
+				<!--!
+					@subsection name_field Campo de nome completo
+					@brief Input para inserção do nome completo do usuário
+				-->
+				<div class="form-group">
+					<input 
+						type="text" 
+						class="form-input" 
+						id="fullName"
+						placeholder="Nome completo"
+						required
+					>
+				</div>
+
+				<!--!
+					@subsection email_field Campo de email
+					@brief Input para inserção do email do usuário
+				-->
+				<div class="form-group">
+					<input 
+						type="email" 
+						class="form-input" 
+						id="emailRegister"
+						placeholder="Email"
+						required
+					>
+				</div>
+
+				<!--!
+					@subsection password_field Campo de senha
+					@brief Input para inserção da senha do usuário
+				-->
+				<div class="form-group">
+					<input 
+						type="password" 
+						class="form-input" 
+						id="passwordRegister"
+						placeholder="Senha"
+						required
+					>
+				</div>
+
+				<!--!
+					@subsection confirm_password_field Campo de confirmação de senha
+					@brief Input para repetir a senha do usuário
+				-->
+				<div class="form-group">
+					<input 
+						type="password" 
+						class="form-input" 
+						id="confirmPassword"
+						placeholder="Repetir senha"
+						required
+					>
+				</div>
+
+				<!--!
+					@subsection register_button Botão de cadastro
+					@brief Botão que realiza o cadastro
+				-->
+				<button type="submit" class="login-button">
+					Cadastrar
+				</button>
+			</form>
+		</div>
+	</div>
+
+
+	<!-- Scripts JavaScript -->
+	<script src="script.js"></script>
+	<script>
+		document.getElementById('registerForm').addEventListener('submit', function(e) {
+			e.preventDefault();
+			
+			const fullName = document.getElementById('fullName').value;
+			const email = document.getElementById('emailRegister').value;
+			const password = document.getElementById('passwordRegister').value;
+			const confirmPassword = document.getElementById('confirmPassword').value;
+			
+			// Validação dos campos
+			if (!fullName || !email || !password || !confirmPassword) {
+				alert('Por favor, preencha todos os campos!');
+				return;
+			}
+			
+			// Validação de senhas iguais
+			if (password !== confirmPassword) {
+				alert('As senhas não coincidem!');
+				return;
+			}
+			
+			// Validação de tamanho mínimo da senha
+			if (password.length < 6) {
+				alert('A senha deve ter pelo menos 6 caracteres!');
+				return;
+			}
+			
+			// Tenta cadastrar o usuário
+			const result = authManager.register(email, password, fullName);
+			
+			if (result.success) {
+				// Mostra alerta de sucesso e redireciona
+				alert('Cadastro realizado com sucesso! Por favor, verifique seu email para ativar sua conta.');
+				window.location.href = 'login.html';
+			} else {
+				alert(result.message);
+			}
+		});
+	</script>
+</body>
+</html>
