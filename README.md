@@ -4,6 +4,16 @@ Projeto desenvolvido para o módulo FrontEnd Dinamico do Bootcamp Ada GloboTech 
 
 Um sistema completo de gerenciamento de tarefas desenvolvido com HTML, CSS e JavaScript puro (Vanilla JS), sem dependências de frameworks externos. O projeto oferece uma interface moderna e responsiva para organização pessoal e profissional.
 
+## Modulo 6
+Professor **Dannyel Kayke**
+
+## Equipe 5✨(grupo 4)
+
+-  Bernardo Soutelo
+-  Iane Gomes
+-  Ren Wrobleski
+  
+
 ## 🚀 Funcionalidades
 
 ### 🔐 Sistema de Autenticação
