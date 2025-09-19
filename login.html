@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<!--!
+	@file login.html
+	@brief Página de login da aplicação GloboTech
+	@details Esta página contém o formulário de autenticação do usuário
+	@author GloboTech Team
+	@version 1.0
+-->
+
+<!--!
+	@section head_section Configurações do documento
+	@brief Define metadados, título e referências CSS
+-->
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Login - To-Do List</title>
+	<link rel="stylesheet" href="style.css"/>
+</head>
+
+<!--!
+	@section body_section Corpo da página de login
+	@brief Contém toda a interface visual da página de login
+-->
+<body class="login-page">
+	<!--!
+		@section login_container Container principal do login
+		@brief Centraliza e organiza todos os elementos de login
+	-->
+	<div class="login-container">
+		<!--!
+			@section login_card Card principal de autenticação
+			@brief Contém header, formulário e link de recuperação
+		-->
+		<div class="login-card">
+			<!--!
+				@section login_header Cabeçalho do formulário
+				@brief Exibe título e subtítulo da página de login
+			-->
+			<header class="login-header">
+				<h1 class="login-title">Login</h1>
+				<p class="login-subtitle">Acesse sua lista de tarefas</p>
+			</header>
+
+			<!--!
+				@section login_form Formulário de autenticação
+				@brief Campos de email, senha e botão de login
+				@details Valida entrada do usuário e redireciona para dashboard
+			-->
+			<form class="login-form" id="loginForm">
+				<!--!
+					@subsection email_field Campo de email
+					@brief Input para inserção do email do usuário
+				-->
+				<div class="form-group">
+					<input 
+						type="email" 
+						class="form-input" 
+						id="email"
+						placeholder="Email"
+						required
+					>
+				</div>
+
+				<!--!
+					@subsection password_field Campo de senha
+					@brief Input para inserção da senha do usuário
+				-->
+				<div class="form-group">
+					<input 
+						type="password" 
+						class="form-input" 
+						id="password"
+						placeholder="Senha"
+						required
+					>
+				</div>
+
+				<!--!
+					@subsection login_button Botão de acesso
+					@brief Botão que realiza login e redireciona para dashboard
+				-->
+				<button type="submit" class="login-button">
+					Login
+				</button>
+			</form>
+
+			<!--!
+				@section auth_links Links de autenticação
+				@brief Links para recuperação de senha e cadastro
+			-->
+			<div class="auth-links">
+				<a href="esqueci.html" class="forgot-password">Esqueci minha senha</a>
+				<a href="cadastro.html" class="register-link">Cadastre-se</a>
+			</div>
+		</div>
+	</div>
+
+	<!-- Scripts JavaScript -->
+	<script src="script.js"></script>
+	<script>
+		document.getElementById('loginForm').addEventListener('submit', function(e) {
+			e.preventDefault();
+			
+			const email = document.getElementById('email').value;
+			const password = document.getElementById('password').value;
+			
+			if (!email || !password) {
+				alert('Por favor, preencha todos os campos!');
+				return;
+			}
+			
+			const result = authManager.login(email, password);
+			
+			if (result.success) {
+				alert(result.message);
+				window.location.href = 'dashboard.html';
+			} else {
+				alert(result.message);
+			}
+		});
+	</script>
+</body>
+</html>
